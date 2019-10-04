@@ -15,27 +15,27 @@
 int main(void) 
 {
     /* Insert DDR and PORT initializations */
-    DDRB = 0xFF;        PORTB = 0x00;
     DDRA = 0x00;	PORTA = 0xFF;
+    DDRC = 0xFF;	PORTC = 0x00;
     /* Insert your solution below */
-    unsigned char Door = 0x00;
-    unsigned char Light = 0x00;
-    unsigned char LED = 0x00;
+    unsigned char cntavail = 0x00;
+    unsigned char tmpA = 0x00;
+    unsigned char i = 0;
+
     while (1) 
     {
-	    Door = PINA & 0x01;
-	    Light = PINA & 0x02;
-	    
-	    if((Door == 0x01) && (Light == 0x00))
-	    {
-		    LED = 0x01;
-	    }
-	    else
-	    {
-		    LED = 0x00;
-	    }
+	    tmpA = 0x0F & PINA;
 
-	    PORTB = LED;
+	    for (i = 0; i < 4; i++) 
+	    {
+		    if ((tmpA & 0x01) == 0x00) 
+		    {
+		       cntavail++;	
+		    }
+		    tmpA = tmpA >> 1;
+	    }
+	    PORTC = cntavail;
+	    cntavail = 0x00;
     }
     return 0;
 }
