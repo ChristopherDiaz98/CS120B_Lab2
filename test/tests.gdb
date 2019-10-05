@@ -82,10 +82,10 @@ continue 2
 expectPORTC 0x02
 checkResult
 
-test "PINA[3:0]: 1111, PORTC[3:0]: 0000"
+test "PINA[3:0]: 1111, PORTC[7:0]: 10000000"
 setPINA 0x0F
 continue 2
-expectPORTC 0x00
+expectPORTC 0x80
 checkResult
 
 

@@ -24,17 +24,26 @@ int main(void)
 
     while (1) 
     {
+	    PORTC = 0x00;
 	    tmpA = 0x0F & PINA;
 
 	    for (i = 0; i < 4; i++) 
 	    {
 		    if ((tmpA & 0x01) == 0x00) 
 		    {
-		       cntavail++;	
+			    cntavail++;	
 		    }
 		    tmpA = tmpA >> 1;
 	    }
-	    PORTC = cntavail;
+	    if(cntavail == 0x00)
+	    {
+		    cntavail = 0x80;
+		    PORTC = cntavail;
+	    }
+	    else
+	    {
+		    PORTC = cntavail;
+	    }
 	    cntavail = 0x00;
     }
     return 0;
